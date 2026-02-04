@@ -13,6 +13,14 @@ A lightweight, original voxel sandbox game inspired by Minecraft. It features ch
 python main.py
 ```
 
+## Run (Web)
+
+```bash
+python -m http.server --directory web
+```
+
+Open <http://localhost:8000> in your browser.
+
 ## Controls
 
 - **W/A/S/D**: Move

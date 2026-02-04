@@ -23,6 +23,7 @@ python main.py
 - **Right Click**: Place block
 - **1-4**: Select block in hotbar
 - **Esc**: Toggle mouse capture
+- **Click**: Recapture mouse if released
 
 ## File Structure
 

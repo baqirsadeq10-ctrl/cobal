@@ -22,7 +22,8 @@ class VoxelGame(pyglet.window.Window):
         self.batch = pyglet.graphics.Batch()
         self.storage = WorldStorage("saves/world.json")
         self.world = World(seed=random.randint(0, 999999), storage=self.storage)
-        self.player = Player(position=(0.0, 40.0, 0.0), velocity=(0.0, 0.0, 0.0))
+        spawn = self.world.get_spawn_position()
+        self.player = Player(position=spawn, velocity=(0.0, 0.0, 0.0))
         self.hotbar = Hotbar()
         self.renderer = Renderer(self)
         self.renderer.setup()
@@ -72,6 +73,7 @@ class VoxelGame(pyglet.window.Window):
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
         if not self._exclusive:
+            self.set_exclusive_mouse(True)
             return
         hit = self.raycast()
         if not hit:
@@ -89,6 +91,9 @@ class VoxelGame(pyglet.window.Window):
             self.player.look(dx, dy)
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
+        if symbol == key.ESCAPE:
+            self.set_exclusive_mouse(not self._exclusive)
+            return
         if symbol == key._1:
             self.hotbar.select(0)
         elif symbol == key._2:

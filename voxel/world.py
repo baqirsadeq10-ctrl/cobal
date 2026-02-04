@@ -67,6 +67,14 @@ class World:
                 chunk.set_block(bx - chunk_x * CHUNK_SIZE, by, bz - chunk_z * CHUNK_SIZE, block)
         return chunk
 
+    def get_height(self, x: int, z: int) -> int:
+        height = int(self.noise.sample(x, z) * 24 + 24)
+        return max(1, min(height, WORLD_HEIGHT - 1))
+
+    def get_spawn_position(self) -> Tuple[float, float, float]:
+        height = self.get_height(0, 0)
+        return (0.5, height + 2.0, 0.5)
+
     def get_block(self, x: int, y: int, z: int) -> int:
         if y < 0 or y >= WORLD_HEIGHT:
             return 0
